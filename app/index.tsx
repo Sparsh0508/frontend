@@ -22,7 +22,8 @@ import DiagnosisResults from "../app/components/DiagnosisResults";
 import LanguageSelector from "../app/components/LanguageSelector";
 
 // Use require for local assets in RN
-const heroImage = require("../assets/hero-farming.jpg");
+// Using a placeholder since hero-farming.jpg doesn't exist
+const heroImage = require("../assets/images/farmImage.jpg");
 
 const Index: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
@@ -95,15 +96,13 @@ const Index: React.FC = () => {
       </View>
 
       {/* Language Selector */}
-      <View style={styles.section}>
-        <LanguageSelector
-          selectedLanguage={selectedLanguage}
-          onLanguageChange={setSelectedLanguage}
-        />
-      </View>
+      <LanguageSelector
+        selectedLanguage={selectedLanguage}
+        onLanguageChange={setSelectedLanguage}
+      />
 
       {/* Input Methods */}
-      <View style={styles.row}>
+      <View>
         <ImageUpload onImageSelect={handleImageSelect} isLoading={isAnalyzing} />
         <VoiceRecorder onAudioRecorded={handleAudioRecorded} isLoading={isAnalyzing} />
       </View>
@@ -144,14 +143,14 @@ const Index: React.FC = () => {
   );
 };
 
-const FeatureItem: React.FC<{ icon: JSX.Element; text: string }> = ({ icon, text }) => (
+const FeatureItem: React.FC<{ icon: React.ReactElement; text: string }> = ({ icon, text }) => (
   <View style={styles.featureItem}>
     {icon}
     <Text style={styles.featureText}>{text}</Text>
   </View>
 );
 
-const FeatureCard: React.FC<{ icon: JSX.Element; title: string; description: string }> = ({
+const FeatureCard: React.FC<{ icon: React.ReactElement; title: string; description: string }> = ({
   icon,
   title,
   description,
