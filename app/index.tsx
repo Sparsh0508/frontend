@@ -5,6 +5,7 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  Alert
 } from "react-native";
 import {
   Leaf,
@@ -14,15 +15,15 @@ import {
   Globe,
   Zap,
 } from "lucide-react-native";
+import { router } from "expo-router";
 
-// RN-specific components (you will create these later in /components)
-import ImageUpload from "../app/components/ImageUpload";
-import VoiceRecorder from "../app/components/VoiceRecorder";
-import DiagnosisResults from "../app/components/DiagnosisResults";
-import LanguageSelector from "../app/components/LanguageSelector";
+import SimpleCard from "./components/SimpleCard";
+import ImageUpload from "./components/ImageUpload";
+import VoiceRecorder from "./components/VoiceRecorder";
+import DiagnosisResults from "./components/DiagnosisResults";
+import LanguageSelector from "./components/LanguageSelector";
 
-// Use require for local assets in RN
-// Using a placeholder since hero-farming.jpg doesn't exist
+// Import the hero image
 const heroImage = require("../assets/images/farmImage.jpg");
 
 const Index: React.FC = () => {
@@ -102,17 +103,37 @@ const Index: React.FC = () => {
       />
 
       {/* Input Methods */}
-      <View>
+      {/* <View>
         <ImageUpload onImageSelect={handleImageSelect} isLoading={isAnalyzing} />
         <VoiceRecorder onAudioRecorded={handleAudioRecorded} isLoading={isAnalyzing} />
+      </View> */}
+
+      {/*  cards components */}
+
+       <View style={{ flex: 1, justifyContent: "center" }}>
+        <SimpleCard
+          text="Crop Recommendations"
+          buttonText="Get Tips"
+          imageSource={require("../assets/images/farmimage3.jpg")}
+          onPress={() =>  Alert.alert("Button Pressed!")}
+        />
+      </View>
+
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <SimpleCard
+          text="Crop Diagnosis"
+          buttonText="Go"
+          imageSource={require("../assets/images/farmimage3.jpg")}
+          onPress={() => router.push("/crop-recommendation")}
+        />
       </View>
 
       {/* Results */}
-      <DiagnosisResults
+      {/* <DiagnosisResults
         results={diagnosisResults}
         isLoading={isAnalyzing}
         onPlayAudio={() => console.log("Playing audio response")}
-      />
+      /> */}
 
       {/* Features Section */}
       <View style={styles.featuresSection}>
@@ -140,6 +161,7 @@ const Index: React.FC = () => {
         </View>
       </View>
     </ScrollView>
+
   );
 };
 
@@ -210,5 +232,4 @@ const styles = StyleSheet.create({
   cardTitle: { fontSize: 18, fontWeight: "600", marginBottom: 6 },
   cardDescription: { fontSize: 14, color: "#555", textAlign: "center" },
 });
-
 export default Index;
