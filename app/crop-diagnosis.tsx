@@ -55,7 +55,7 @@ const CropRecommendationScreen: React.FC = () => {
     <ScrollView style={styles.container}>
       {/* Header Section */}
       <View style={styles.headerSection}>
-        <Text style={styles.headerTitle}>Crop Recommendations</Text>
+        <Text style={styles.headerTitle}>Crop Diagnosis</Text>
         <Text style={styles.headerSubtitle}>
           Get personalized crop recommendations based on your soil, climate, and farming conditions
         </Text>

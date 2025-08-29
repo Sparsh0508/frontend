@@ -81,15 +81,17 @@ const Index: React.FC = () => {
         <View style={styles.heroOverlay} />
         <View style={styles.heroContent}>
           <View style={styles.heroTitleRow}>
-            <Leaf size={32} color="#fff" />
-            <Text style={styles.heroTitle}>CropAI Doctor</Text>
+            {/* <Leaf size={32} color="#fff" /> */}
+            <Image source={heroImage} style={styles.heroImage} resizeMode="cover" />
+
+            {/* <Text style={styles.heroTitle}>KrishiSaarthi</Text> */}
           </View>
           <Text style={styles.heroSubtitle}>
             AI-powered crop disease diagnosis in your native language.
           </Text>
           <View style={styles.featuresRow}>
             <FeatureItem icon={<Camera size={18} color="#fff" />} text="Image Detection" />
-            <FeatureItem icon={<Mic size={18} color="#fff" />} text="Voice Queries" />
+            <FeatureItem icon={<Mic size={18} color="#fff" />} text="Voice Output" />
             <FeatureItem icon={<Globe size={18} color="#fff" />} text="Multi-language" />
             <FeatureItem icon={<Zap size={18} color="#fff" />} text="Instant Results" />
           </View>
@@ -115,7 +117,9 @@ const Index: React.FC = () => {
           text="Crop Recommendations"
           buttonText="Get Tips"
           imageSource={require("../assets/images/farmimage3.jpg")}
-          onPress={() =>  Alert.alert("Button Pressed!")}
+          onPress={() => router.push("/ChatBot")}
+          
+          // onPress={() => Alert.alert("Crop Diagnosis", "Feature coming soon!")}
         />
       </View>
 
@@ -124,7 +128,7 @@ const Index: React.FC = () => {
           text="Crop Diagnosis"
           buttonText="Go"
           imageSource={require("../assets/images/farmimage3.jpg")}
-          onPress={() => router.push("/crop-recommendation")}
+          onPress={() => router.push("/crop-diagnosis")}
         />
       </View>
 

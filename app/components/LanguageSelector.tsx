@@ -11,14 +11,11 @@ interface Language {
 const languages: Language[] = [
   { code: 'en', name: 'English', nativeName: 'English' },
   { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी' },
-  { code: 'es', name: 'Spanish', nativeName: 'Español' },
-  { code: 'fr', name: 'French', nativeName: 'Français' },
-  { code: 'ar', name: 'Arabic', nativeName: 'العربية' },
-  { code: 'pt', name: 'Portuguese', nativeName: 'Português' },
+  { code: 'es', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' },
+  { code: 'fr', name: 'Gujarati', nativeName: 'ગુજરાતી' },
+  { code: 'ar', name: 'Tamil', nativeName: 'தமிழ்' },
+  { code: 'pt', name: 'Malayalam', nativeName: 'മലയാളം' },
   { code: 'bn', name: 'Bengali', nativeName: 'বাংলা' },
-  { code: 'ru', name: 'Russian', nativeName: 'Русский' },
-  { code: 'ja', name: 'Japanese', nativeName: '日本語' },
-  { code: 'sw', name: 'Swahili', nativeName: 'Kiswahili' },
 ];
 
 interface LanguageSelectorProps {
