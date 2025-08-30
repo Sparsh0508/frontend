@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { useI18n } from "../lib/i18n";
 
 interface Message {
   text: string;
@@ -15,8 +16,9 @@ interface Message {
 }
 
 export default function ChatScreen() {
+  const { translations } = useI18n();
   const [messages, setMessages] = useState<Message[]>([
-    { text: "Hello! I'm your farming assistant. Ask me anything about crops, soil, or farming techniques!", sender: "bot" }
+    { text: translations.initialBotMessage, sender: "bot" }
   ]);
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
@@ -68,8 +70,8 @@ export default function ChatScreen() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>🌾 Crop Chat Assistant</Text>
-        <Text style={styles.headerSubtitle}>Your intelligent farming companion</Text>
+        <Text style={styles.headerTitle}>{translations.cropChatAssistant}</Text>
+        <Text style={styles.headerSubtitle}>{translations.intelligentFarmingCompanion}</Text>
       </View>
 
       {/* Messages */}
@@ -86,7 +88,7 @@ export default function ChatScreen() {
             <View style={[styles.messageContainer, isBot ? styles.botMessage : styles.userMessage]}>
               <View style={[styles.messageBubble, isBot ? styles.botBubble : styles.userBubble]}>
                 <Text style={styles.messageSender}>
-                  {isBot ? "🤖 AI Assistant" : "👤 You"}
+                  {isBot ? translations.aiAssistant : translations.you}
                 </Text>
                 <Text style={styles.messageText}>{item.text}</Text>
               </View>
@@ -100,7 +102,7 @@ export default function ChatScreen() {
         <View style={styles.loadingContainer}>
           <View style={styles.loadingBubble}>
             <ActivityIndicator size="small" color="#16a34a" />
-            <Text style={styles.loadingText}>AI is thinking...</Text>
+            <Text style={styles.loadingText}>{translations.aiThinking}</Text>
           </View>
         </View>
       )}
@@ -111,7 +113,7 @@ export default function ChatScreen() {
           <TextInput
             value={question}
             onChangeText={setQuestion}
-            placeholder="Ask me anything about farming..."
+            placeholder={translations.askAnythingFarming}
             placeholderTextColor="#6b7280"
             multiline
             editable={!loading}

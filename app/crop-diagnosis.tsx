@@ -3,8 +3,10 @@ import { View, ScrollView, StyleSheet, Text, ActivityIndicator } from "react-nat
 import ImageUpload from "./components/ImageUpload";
 import VoiceRecorder from "./components/VoiceRecorder";
 import DiagnosisResults from "./components/DiagnosisResults";
+import { useI18n } from "../lib/i18n";
 
 const CropRecommendationScreen: React.FC = () => {
+  const { translations } = useI18n();
   const [diagnosisResults, setDiagnosisResults] = useState<any>(null);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
 
@@ -55,15 +57,15 @@ const CropRecommendationScreen: React.FC = () => {
     <ScrollView style={styles.container}>
       {/* Header Section */}
       <View style={styles.headerSection}>
-        <Text style={styles.headerTitle}>Crop Diagnosis</Text>
+        <Text style={styles.headerTitle}>{translations.cropDiagnosisTitle}</Text>
         <Text style={styles.headerSubtitle}>
-          Get personalized crop recommendations based on your soil, climate, and farming conditions
+          {translations.cropDiagnosisSubtitle}
         </Text>
       </View>
 
       {/* Input Section */}
       <View style={styles.inputSection}>
-        <Text style={styles.sectionTitle}>Analyze Your Farming Conditions</Text>
+        <Text style={styles.sectionTitle}>{translations.analyzeFarmingConditions}</Text>
         <View style={styles.cardsRow}>
           <ImageUpload onImageSelect={handleImageSelect} isLoading={isAnalyzing} />
           <VoiceRecorder onAudioRecorded={handleAudioRecorded} isLoading={isAnalyzing} />
@@ -74,7 +76,7 @@ const CropRecommendationScreen: React.FC = () => {
       {/* Results Section */}
       {diagnosisResults && (
         <View style={styles.resultsSection}>
-          <Text style={styles.sectionTitle}>Crop Recommendations</Text>
+          <Text style={styles.sectionTitle}>{translations.cropRecommendationsTitle}</Text>
           <DiagnosisResults
             results={diagnosisResults}
             isLoading={isAnalyzing}
@@ -85,23 +87,23 @@ const CropRecommendationScreen: React.FC = () => {
 
       {/* Tips Section */}
       <View style={styles.tipsSection}>
-        <Text style={styles.sectionTitle}>Farming Tips</Text>
+        <Text style={styles.sectionTitle}>{translations.farmingTips}</Text>
         <View style={styles.tipCard}>
-          <Text style={styles.tipTitle}>🌱 Soil Preparation</Text>
+          <Text style={styles.tipTitle}>{translations.soilPreparation}</Text>
           <Text style={styles.tipDescription}>
-            Prepare your soil 2-3 weeks before planting by adding organic matter and testing pH levels.
+            {translations.soilPreparationDesc}
           </Text>
         </View>
         <View style={styles.tipCard}>
-          <Text style={styles.tipTitle}>💧 Water Management</Text>
+          <Text style={styles.tipTitle}>{translations.waterManagement}</Text>
           <Text style={styles.tipDescription}>
-            Implement efficient irrigation systems to conserve water and ensure optimal plant growth.
+            {translations.waterManagementDesc}
           </Text>
         </View>
         <View style={styles.tipCard}>
-          <Text style={styles.tipTitle}>🔄 Crop Rotation</Text>
+          <Text style={styles.tipTitle}>{translations.cropRotation}</Text>
           <Text style={styles.tipDescription}>
-            Rotate crops seasonally to maintain soil health and prevent pest buildup.
+            {translations.cropRotationDesc}
           </Text>
         </View>
       </View>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, FlatList } from 'react-native';
 import { Languages, ChevronDown } from 'lucide-react-native';
+import { useI18n } from '../../lib/i18n';
 
 interface Language {
   code: string;
@@ -27,6 +28,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   selectedLanguage,
   onLanguageChange,
 }) => {
+  const { translations } = useI18n();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const selectedLang = languages.find(lang => lang.code === selectedLanguage);
 
@@ -64,7 +66,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
     <View style={styles.container}>
       <View style={styles.header}>
         <Languages size={20} color="#4CAF50" />
-        <Text style={styles.headerText}>Select Language</Text>
+        <Text style={styles.headerText}>{translations.selectLanguage}</Text>
       </View>
       
       <TouchableOpacity
@@ -78,7 +80,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
               <Text style={styles.selectedEnglishName}>({selectedLang.name})</Text>
             </View>
           ) : (
-            <Text style={styles.placeholder}>Select language</Text>
+            <Text style={styles.placeholder}>{translations.selectLanguage}</Text>
           )}
         </View>
         <ChevronDown size={20} color="#666" />
@@ -93,7 +95,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Choose Language</Text>
+              <Text style={styles.modalTitle}>{translations.chooseLanguage}</Text>
               <TouchableOpacity
                 style={styles.closeButton}
                 onPress={() => setIsModalVisible(false)}

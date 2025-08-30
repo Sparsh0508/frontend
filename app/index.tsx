@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   Image,
   ScrollView,
   StyleSheet,
-  Alert
 } from "react-native";
 import {
   Leaf,
@@ -18,156 +17,12 @@ import {
 import { router } from "expo-router";
 
 import SimpleCard from "./components/SimpleCard";
-import ImageUpload from "./components/ImageUpload";
-import VoiceRecorder from "./components/VoiceRecorder";
-import DiagnosisResults from "./components/DiagnosisResults";
 import LanguageSelector from "./components/LanguageSelector";
+import { useI18n } from "../lib/i18n";
 
 // Import the hero image
 const heroImage = require("../assets/images/farmImage.jpg");
 
-const Index: React.FC = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
-  const [diagnosisResults, setDiagnosisResults] = useState<any>(null);
-  const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
-
-  const handleImageSelect = async (file: any) => {
-    setIsAnalyzing(true);
-    setTimeout(() => {
-      setDiagnosisResults({
-        disease: "Tomato Late Blight",
-        confidence: 0.89,
-        severity: "medium",
-        description:
-          "Late blight is a serious fungal disease that affects tomato plants, especially in humid conditions.",
-        recommendations: [
-          "Apply copper-based fungicide immediately",
-          "Remove affected leaves",
-          "Improve air circulation",
-          "Avoid overhead watering",
-          "Monitor humidity levels",
-        ],
-      });
-      setIsAnalyzing(false);
-    }, 3000);
-  };
-
-  const handleAudioRecorded = async (audioBlob: any) => {
-    setIsAnalyzing(true);
-    setTimeout(() => {
-      setDiagnosisResults({
-        disease: "General Crop Health Advice",
-        confidence: 0.95,
-        severity: "low",
-        description:
-          "Based on your voice query about crop nutrition, here are some recommendations.",
-        recommendations: [
-          "Test soil pH regularly",
-          "Apply balanced fertilizer",
-          "Ensure water drainage",
-          "Monitor for pests",
-          "Rotate crops yearly",
-        ],
-      });
-      setIsAnalyzing(false);
-    }, 2000);
-  };
-
-  return (
-    <ScrollView style={styles.container}>
-      {/* Hero Section */}
-      <View style={styles.heroSection}>
-        <Image source={heroImage} style={styles.heroImage} resizeMode="cover" />
-        <View style={styles.heroOverlay} />
-        <View style={styles.heroContent}>
-          <View style={styles.heroTitleRow}>
-            <Leaf size={32} color="#fff" />
-            {/* <Image source={heroImage} style={styles.heroImage} resizeMode="cover" /> */}
-
-            <Text style={styles.heroTitle}>KrishiSaarthi</Text>
-          </View>
-          <Text style={styles.heroSubtitle}>
-            AI-powered crop disease diagnosis in your native language.
-          </Text>
-          <View style={styles.featuresRow}>
-            <FeatureItem icon={<Camera size={18} color="#fff" />} text="Image Detection" />
-            <FeatureItem icon={<Mic size={18} color="#fff" />} text="Voice Output" />
-            <FeatureItem icon={<Globe size={18} color="#fff" />} text="Multi-language" />
-            <FeatureItem icon={<Zap size={18} color="#fff" />} text="Instant Results" />
-          </View>
-        </View>
-      </View>
-
-      {/* Language Selector */}
-      <LanguageSelector
-        selectedLanguage={selectedLanguage}
-        onLanguageChange={setSelectedLanguage}
-      />
-
-      {/* Input Methods */}
-      {/* <View>
-        <ImageUpload onImageSelect={handleImageSelect} isLoading={isAnalyzing} />
-        <VoiceRecorder onAudioRecorded={handleAudioRecorded} isLoading={isAnalyzing} />
-      </View> */}
-
-      {/*  cards components */}
-
-       <View style={{ flex: 1, justifyContent: "center" }}>
-        <SimpleCard
-          text="Crop Recommendations"
-          buttonText="Get Tips"
-          imageSource={require("../assets/images/cropImage1.jpg")}
-          onPress={() => router.push("/ChatBot")}
-          
-          // onPress={() => Alert.alert("Crop Diagnosis", "Feature coming soon!")}
-        />
-      </View>
-
-      <View style={{ flex: 1, justifyContent: "center" }}>
-        <SimpleCard
-          text="Crop Diagnosis"
-          buttonText="Go"
-          imageSource={require("../assets/images/cropImage2.jpg")}
-          onPress={() => router.push("/crop-diagnosis")}
-        />
-      </View>
-
-      {/* Results */}
-      {/* <DiagnosisResults
-        results={diagnosisResults}
-        isLoading={isAnalyzing}
-        onPlayAudio={() => console.log("Playing audio response")}
-      /> */}
-
-      {/* Features Section */}
-      <View style={styles.featuresSection}>
-        <Text style={styles.sectionTitle}>How CropAI Doctor Works</Text>
-        <Text style={styles.sectionSubtitle}>
-          Advanced AI technology made simple for farmers worldwide
-        </Text>
-
-        <View>
-          <FeatureCard
-            icon={<Camera size={32} color="#fff" />}
-            title="Upload & Analyze"
-            description="Take a photo of your crop and our AI instantly identifies diseases."
-          />
-          <FeatureCard
-            icon={<Brain size={32} color="#fff" />}
-            title="AI Diagnosis"
-            description="Our AI provides detailed analysis and localized recommendations."
-          />
-          <FeatureCard
-            icon={<Mic size={32} color="#fff" />}
-            title="Voice & Text"
-            description="Get advice in your native language via text & audio."
-          />
-        </View>
-      </View>
-    </ScrollView>
-
-  );
-};
 
 const FeatureItem: React.FC<{ icon: React.ReactElement; text: string }> = ({ icon, text }) => (
   <View style={styles.featureItem}>
@@ -236,4 +91,97 @@ const styles = StyleSheet.create({
   cardTitle: { fontSize: 18, fontWeight: "600", marginBottom: 6 },
   cardDescription: { fontSize: 14, color: "#555", textAlign: "center" },
 });
+const Index: React.FC = () => {
+  const { translations, currentLanguage, changeLanguage } = useI18n();
+
+  return (
+    <ScrollView style={styles.container}>
+      {/* Hero Section */}
+      <View style={styles.heroSection}>
+        <Image source={heroImage} style={styles.heroImage} resizeMode="cover" />
+        <View style={styles.heroOverlay} />
+        <View style={styles.heroContent}>
+          <View style={styles.heroTitleRow}>
+            <Leaf size={32} color="#fff" />
+            {/* <Image source={heroImage} style={styles.heroImage} resizeMode="cover" /> */}
+
+            <Text style={styles.heroTitle}>{translations.heroTitle}</Text>
+          </View>
+          <Text style={styles.heroSubtitle}>
+            {translations.heroSubtitle}
+          </Text>
+          <View style={styles.featuresRow}>
+            <FeatureItem icon={<Camera size={18} color="#fff" />} text={translations.imageDetection} />
+            <FeatureItem icon={<Mic size={18} color="#fff" />} text={translations.voiceOutput} />
+            <FeatureItem icon={<Globe size={18} color="#fff" />} text={translations.multiLanguage} />
+            <FeatureItem icon={<Zap size={18} color="#fff" />} text={translations.instantResults} />
+          </View>
+        </View>
+      </View>
+
+      {/* Language Selector */}
+      <LanguageSelector
+        selectedLanguage={currentLanguage}
+        onLanguageChange={changeLanguage}
+      />
+
+      {/*  cards components */}
+
+       <View style={{ flex: 1, justifyContent: "center" }}>
+        <SimpleCard
+          text={translations.cropRecommendations}
+          buttonText={translations.getTips}
+          imageSource={require("../assets/images/cropImage1.jpg")}
+          onPress={() => router.push("/ChatBot")}
+          
+          // onPress={() => Alert.alert("Crop Diagnosis", "Feature coming soon!")}
+        />
+      </View>
+
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <SimpleCard
+          text={translations.cropDiagnosis}
+          buttonText={translations.go}
+          imageSource={require("../assets/images/cropImage2.jpg")}
+          onPress={() => router.push("/crop-diagnosis")}
+        />
+      </View>
+
+      {/* Results */}
+      {/* <DiagnosisResults
+        results={diagnosisResults}
+        isLoading={isAnalyzing}
+        onPlayAudio={() => console.log("Playing audio response")}
+      /> */}
+
+      {/* Features Section */}
+      <View style={styles.featuresSection}>
+        <Text style={styles.sectionTitle}>{translations.howItWorks}</Text>
+        <Text style={styles.sectionSubtitle}>
+          {translations.howItWorksSubtitle}
+        </Text>
+
+        <View>
+          <FeatureCard
+            icon={<Camera size={32} color="#fff" />}
+            title={translations.uploadAnalyze}
+            description={translations.uploadAnalyzeDesc}
+          />
+          <FeatureCard
+            icon={<Brain size={32} color="#fff" />}
+            title={translations.aiDiagnosis}
+            description={translations.aiDiagnosisDesc}
+          />
+          <FeatureCard
+            icon={<Mic size={32} color="#fff" />}
+            title={translations.voiceText}
+            description={translations.voiceTextDesc}
+          />
+        </View>
+      </View>
+    </ScrollView>
+
+  );
+};
+
 export default Index;
